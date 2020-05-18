@@ -1,0 +1,26 @@
+{% extends "web_app/base.html" %}
+{% load static %}
+
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block body %}
+<div class='main_container'>
+    <h1>Home</h1>
+    
+    <div class='container'>
+        <img src="{% static 'web_app/images/home.jpg' %}" id='home_img'>
+        <form action="{% url 'collection' %}" method="post">
+            {% csrf_token %}
+            <input class="container_btn" type="submit" value="Start shopping" />
+        </form>
+    </div>
+    <div class='text_div'>
+        <h2>Description of page</h2>
+        <p>Descriptions.....</p>
+    </div>
+</div>
+
+{% endblock %}

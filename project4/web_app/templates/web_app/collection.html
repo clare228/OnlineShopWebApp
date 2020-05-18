@@ -1,0 +1,40 @@
+{% extends "web_app/base.html" %}
+{% load static %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block body %}
+<div class='main_container'>
+    <h1>Collection</h1>
+    <div id='collection_div'>
+        <div class='text_container'>
+            <form action="{% url 'category' %}" method="post">
+                {% csrf_token %}
+                <input id='all_items_img' type="image" src="{% static 'web_app/images/all_items.jpg' %}" name='category_name' alt="Submit" value='All items'>
+            </form>
+            <div class='img_text'>All items</div>
+        </div>
+
+        <!--do the same for categories in category-->
+        <form class='cat_form' action="{% url 'category' %}" method="post">
+            {% csrf_token %}
+            <input id='earrings_img' type="image" src="{% static 'web_app/images/earrings.jpeg' %}" name='category_name' alt="Submit" value='Earrings'>
+        </form>
+        <form class='cat_form' action="{% url 'category' %}" method="post">
+            {% csrf_token %}
+            <input id='bracelets_img' type="image" src="{% static 'web_app/images/bracelets.jpg' %}" name='category_name' alt="Submit" value='Bracelets'>
+        </form>
+        <form class='cat_form' action="{% url 'category' %}" method="post">
+            {% csrf_token %}
+            <input id='necklaces_img' type="image" src="{% static 'web_app/images/necklaces.jpg' %}" name='category_name' alt="Submit" value='Necklaces'>
+        </form>
+        <form class='cat_form' action="{% url 'category' %}" method="post">
+            {% csrf_token %}
+            <input id='macrame_img' type="image" src="{% static 'web_app/images/macrame.jpg' %}" name='category_name' alt="Submit" value='Macrame'>
+        </form>
+
+    </div>
+</div>
+{% endblock %}

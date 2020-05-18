@@ -1,0 +1,209 @@
+*{
+    color: #333;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.navigation_bar{
+    display: flex;
+    margin: 50px ;
+    justify-content: space-between;
+}
+
+.main_container{
+    margin:30px 30px 150px 30px;
+}
+
+h1{
+    text-align: center;
+    font-size: 40pt;
+    font-style: italic;
+}
+
+h2{
+    text-align: center;
+    font-size: 25pt;
+    font-style: italic;
+}
+
+p{
+    text-align: justify;    
+    font-size: 17pt;
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+#logo{
+    width:15%;
+    object-fit: contain;
+    min-width: 130px;
+}
+
+#search_bar[type=text] {
+    width: 40px;
+    box-sizing: border-box;
+    border: 2px solid white;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: white;
+    background-image: url("images/search_icon.png");
+    background-position: 10px 10px; 
+    background-repeat: no-repeat;
+    padding: 12px 20px 12px 50px;
+    -webkit-transition: width 0.4s ease-in-out;
+    transition: width 0.4s ease-in-out;
+}
+  
+#search_bar[type=text]:focus {
+    width: 100%;
+    outline:0;
+}
+
+#open_nav:hover{
+    opacity: 0.5;
+}
+
+#open_nav{
+    margin:3px 15px 0px 15px;
+}
+
+#search_menu{
+    display: flex;
+    flex-direction: row;
+}
+
+a{
+    text-decoration: none;
+    font-size: xx-large;
+    color: #D7D9DA
+}
+
+a:hover{
+    text-decoration: underline;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+}
+  
+.sidenav a {
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+    font-size: 25px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+  
+.sidenav a:hover {
+    color: #f1f1f1;
+}
+  
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+  
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+}
+
+#home_img{
+    object-fit: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    width: 75%;
+}
+
+#text_div{
+    margin: 10% 10% 10% 10%;
+
+}
+
+.container {
+    position: relative;
+    width: 100%;
+}
+  
+.container .container_btn {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    background-color: #555;
+    opacity: 0.6;
+    color: #D7D9DA;
+    font-size: 30px;
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    text-align: center;
+}
+  
+.container .container_btn:hover {
+    opacity: 1;
+}
+
+#all_items_img{
+    object-fit: contain;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    width: 75%;
+}
+
+#earrings_img, #necklaces_img, #bracelets_img, #macrame_img{
+    object-fit: contain;
+    display: block;
+    margin-top: 50px;
+    margin-bottom: 100px;
+    width:100%;
+}
+
+.cat_form{
+    width: 35%;
+}
+
+#collection_div{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+}
+
+#all_items_img:hover, #earrings_img:hover, #necklaces_img:hover, #bracelets_img:hover, #macrame_img:hover{
+    opacity:0.7;
+}
+
+.text_container{
+    position: relative;
+    text-align: center;
+}
+
+.img_text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: #D7D9DA;
+    font-size: 40pt;
+    font-style: italic;
+}
