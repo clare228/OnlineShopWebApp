@@ -2,39 +2,25 @@
 {% load static %}
 
 {% block title %}
-    Home
+    Collection
 {% endblock %}
 
 {% block body %}
 <div class='main_container'>
     <h1>Collection</h1>
     <div id='collection_div'>
-        <div class='text_container'>
-            <form action="{% url 'category' %}" method="post">
-                {% csrf_token %}
-                <input id='all_items_img' type="image" src="{% static 'web_app/images/all_items.jpg' %}" name='category_name' alt="Submit" value='All items'>
-            </form>
+        <div id='all_items_container'>
+            <img alt="All items" class='category_img' id='All items' id='all_items_img' src="{% static 'web_app/images/all_items.jpg' %}">
             <div class='img_text'>All items</div>
         </div>
-
-        <!--do the same for categories in category-->
-        <form class='cat_form' action="{% url 'category' %}" method="post">
-            {% csrf_token %}
-            <input id='earrings_img' type="image" src="{% static 'web_app/images/earrings.jpeg' %}" name='category_name' alt="Submit" value='Earrings'>
-        </form>
-        <form class='cat_form' action="{% url 'category' %}" method="post">
-            {% csrf_token %}
-            <input id='bracelets_img' type="image" src="{% static 'web_app/images/bracelets.jpg' %}" name='category_name' alt="Submit" value='Bracelets'>
-        </form>
-        <form class='cat_form' action="{% url 'category' %}" method="post">
-            {% csrf_token %}
-            <input id='necklaces_img' type="image" src="{% static 'web_app/images/necklaces.jpg' %}" name='category_name' alt="Submit" value='Necklaces'>
-        </form>
-        <form class='cat_form' action="{% url 'category' %}" method="post">
-            {% csrf_token %}
-            <input id='macrame_img' type="image" src="{% static 'web_app/images/macrame.jpg' %}" name='category_name' alt="Submit" value='Macrame'>
-        </form>
-
+        {% for category in categories %}
+            <div class='text_container'>
+                <img alt={{category.category_name}} class='category_img' id={{category.category_name}} src="{% static 'web_app/images/' %}{{category.category_name}}.jpg">
+                <div class='img_text'>{{category.category_name}}</div>
+            </div>
+        {% empty %}
+            <li>No categories</li>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}

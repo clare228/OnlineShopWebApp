@@ -1,11 +1,163 @@
 {% extends "web_app/base.html" %}
+{% load static %}
 
 {% block title %}
-    Home
+    {{item_name}}
 {% endblock %}
 
 {% block body %}
 <div class='main_container'>
-    <h1>Item_name</h1>
+    <div class='navigation_div_2'>
+        <h2>Collection</h2>
+        <div>
+            <a href="{% url 'category' 'All items' %}">All items</a>
+            {% for category in categories %}
+                <a href="{% url 'category' category.category_name %}">{{category.category_name}}</a>
+            {% endfor %}
+        </div>
+    </div>
+    <div  id='item_container'>
+
+        {% if item_type|stringformat:"s" == 'item' %} <!--show other items in group and sets-->
+            {% for item in items %}
+                {% if item.id|stringformat:"s" == item_id %}
+                    <div class='item_imgs'>
+                        <span>item images</span>
+                    </div>
+            
+                    <div class='item_details'>
+                        <span><h1>{{item_name}}</h1></span>
+                        <span class='item_price'>
+                            <p>Price: £{{item.price}}</p>
+                        </span>
+                        {% if item.group.count != 0 %}
+                            <span>
+                                <p>Other colours:</p>
+                            </span>
+                            <select name="colours" id="colour_drop">
+                                <option value={{item.id}}>
+                                    <p>{{item.item_name}}</p>
+                                </option>
+                                {% for group in item.group.all.values %}
+                                    {% for item_2 in items %}
+                                        {% for group_2 in item_2.group.all.values %}
+                                            {% if item.id != item_2.id and group_2.id == group.id %}
+                                                <option value={{item_2.id}}>
+                                                    <p>{{item_2.item_name}}</p>
+                                                </option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+                        <span class='item_description'>
+                            <p>Item description:</p>
+                            <p>{{item.description}}</p>
+                        </span>
+                    </div>
+
+                    <h2 id='others_title'>You might also like...</h2>
+                    
+                    <div class='other_items'>
+                        {% for set in item.sets.all.values %}
+                            {% for set_2 in sets %}
+                                {% if set_2.id == set.id %}
+                                    <div class='set_div' id={{set_2.id}}>
+                                        <img alt="No image available" class='item_img' src="{% static 'web_app/images/' %}set_{{set_2.id}}.jpg">
+                                        <div class='description_div'>
+                                            <span id="item_name">{{set_2.set_name}}</span>
+                                            <span id="item_price">Price: £{{set_2.set_price}}</span>
+                                        </div>
+                                    </div>
+                                    {% for item_2 in items %}
+                                        {% for set_3 in item_2.sets.all.values %}
+                                            {% if item.id != item_2.id and set_2.id == set_3.id %}
+                                                <div class='item_div' id={{item_2.id}}>
+                                                    <img alt="No image available" class='item_img' src="{% static 'web_app/images/' %}item_{{item_2.id}}_1.jpg">
+                                                    <div class='description_div'>
+                                                        <span id="item_name">{{item_2.item_name}}</span>
+                                                        <span id="item_price">Price: £{{item_2.price}}</span>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    
+                        {% for group in item.group.all.values %}
+                            {% for item_2 in items %}
+                                {% for group_2 in item_2.group.all.values %}
+                                    {% if item.id != item_2.id and group_2.id == group.id %}
+                                        <div class='item_div' id={{item_2.id}}>
+                                            <img alt="No image available" class='item_img' src="{% static 'web_app/images/' %}item_{{item_2.id}}_1.jpg">
+                                            <div class='description_div'>
+                                                <span id="item_name">{{item_2.item_name}}</span>
+                                                <span id="item_price">Price: £{{item_2.price}}</span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            {% endfor %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+
+        {% elif item_type|stringformat:"s" == 'set' %}<!--show items in sets-->
+            {% for set in sets %}
+                {% if set.id|stringformat:"s" == item_id %}
+                    <div class='item_imgs'>
+                        <span>set images</span>
+                    </div>
+            
+                    <div class='item_details'>
+                        <span><h1>{{item_name}}</h1></span>
+                        <span class='item_price'>
+                            <p>Price: £{{set.set_price}}</p>
+                        </span>
+                        <span class='item_description'>
+                            <p>Item description: </p>
+                            <p>{{set.set_description}}</p>
+                        </span>
+                    </div>
+
+                    <h2 id='others_title'>You might also like...</h2>
+                    
+                    <div class='other_items'>
+                        {% for item in items %}
+                            {% for set_2 in item.sets.all.values %}
+                                {% if set_2.id == set.id %}
+                                    <div class='item_div' id={{item.id}}>
+                                        <img alt="No image available" class='item_img' src="{% static 'web_app/images/' %}item_{{item.id}}_1.jpg">
+                                        <div class='description_div'>
+                                            <span id="item_name">{{item.item_name}}</span>
+                                            <span id="item_price">Price: £{{item.price}}</span>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        {% endfor %}
+                    
+                        {% for set_3 in sets %}
+                            {% if set_3.id != set.id %}
+                                <div class='set_div' id={{set_3.id}}>
+                                    <img alt="No image available" class='item_img' src="{% static 'web_app/images/' %}set_{{set_3.id}}.jpg">
+                                    <div class='description_div'>
+                                        <span id="item_name">{{set_3.set_name}}</span>
+                                        <span id="item_price">Price: £{{set_3.set_price}}</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+    </div>
 </div>
+
 {% endblock %}

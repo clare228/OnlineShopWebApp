@@ -1,11 +1,100 @@
 {% extends "web_app/base.html" %}
+{% load static %}
 
 {% block title %}
-    Category_name
+    {{category_name}}
 {% endblock %}
 
 {% block body %}
 <div class='main_container'>
-    <h1>category_name</h1>
+    <h1>{{category_name}}</h1>
+    <div  id='category_container'>
+
+        <div class='navigation_div'>
+            <h2>Collection</h2>
+            <a href="{% url 'category' 'All items' %}">All items</a>
+            {% for category in categories %}
+                <a href="{% url 'category' category.category_name %}">{{category.category_name}}</a>
+            {% endfor %}
+            <h2>Filter</h2>
+            <button type="button" class="collapsible">Filter by colour</button>
+            <div class="colour">
+                <div class='filters'>
+                    {% for colour in colours %}
+                        <div class='each_colour'>
+                            <span class='options'>{{colour.colour_name}} </span>
+                            <input type="checkbox" class="colour_check" id={{colour.id}}>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="button" class="collapsible">Filter by price</button>
+            <div class="price">
+                <div class='filter_price'>
+                    <form id='price_form'>
+                        {% csrf_token %}
+                        <div>
+                            <span>Min price: £ </span>
+                            <input id='min_price' class='price_input' type="number" min="0" name="min_price" placeholder="Eg. 20" onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+                        <div>
+                            <span>Max price: £ </span>
+                            <input id='max_price' class='price_input' type="number" min="0" name="max_price" placeholder="Eg. 80" onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+                        <input id='price_submit' type="submit" value="Apply filter"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class='items_div'>
+            {% if category_name|stringformat:"s" == 'Sets' %}
+                {% for set in sets %}
+                    <div class='set_div' id={{set.id}}>
+                        <img alt="No image available" class='item_img' src="{% static 'web_app/images/' %}set_{{set.id}}.jpg">
+                        <div class='description_div'>
+                            <span id="item_name">{{set.set_name}}</span>
+                            <span id="item_price">Price: £{{set.set_price}}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+
+            {% elif category_name|stringformat:"s" == 'All items' %}
+                {% for item in items %}
+                    <div class='item_div' id={{item.id}}>
+                        <img alt="No image available" class='item_img' src="{% static 'web_app/images/' %}item_{{item.id}}_1.jpg">
+                        <div class='description_div'>
+                            <span id="item_name">{{item.item_name}}</span>
+                            <span id="item_price">Price: £{{item.price}}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% for set in sets %}
+                    <div class='set_div' id={{set.id}}>
+                        <img alt="No image available" class='item_img' src="{% static 'web_app/images/' %}set_{{set.id}}.jpg">
+                        <div class='description_div'>
+                            <span id="item_name">{{set.set_name}}</span>
+                            <span id="item_price">Price: £{{set.set_price}}</span>
+                        </div>
+                    </div>
+                {% endfor %}
+                
+            {% else %}
+                {% for item in items %}
+                    {% for category in item.category.all %}
+                        {% if category|stringformat:"s" == category_name|stringformat:"s" %}
+                            <div class='item_div' id={{item.id}}>
+                                <img alt="No image available" class='item_img' src="{% static 'web_app/images/' %}item_{{item.id}}_1.jpg">
+                                <div class='description_div'>
+                                    <span id="item_name">{{item.item_name}}</span>
+                                    <span id="item_price">Price: £{{item.price}}</span>
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+        </div>  
+    </div>
 </div>
 {% endblock %}

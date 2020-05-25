@@ -23,12 +23,24 @@
         <a id="close_nav" href="javascript:void(0)" class="closebtn">&times;</a>        
         <a href="{% url 'home' %}">Home</a>
         <a href="{% url 'collection' %}">Shop</a>
+            <div id='category_shop_div'>
+                <a href="{% url 'category' 'All items' %}">All items</a>
+                {% for category in categories %}
+                    <a href="{% url 'category' category.category_name %}">{{category.category_name}}</a>
+                {% endfor %}
+            </div>
         <a href="{% url 'about' %}">About</a>
         <a href="{% url 'contact' %}">Contact</a>
     </div>
     {% block body %}
     {% endblock %}
+    <script>
+        var items = JSON.parse("{{json_items|escapejs}}")
+        var categories = JSON.parse("{{json_categories|escapejs}}")
+        var groups = JSON.parse("{{json_groups|escapejs}}")
+        var sets = JSON.parse("{{json_sets|escapejs}}")
+        var colours = JSON.parse("{{json_colours|escapejs}}")
+    </script>
     <script src="{% static 'web_app/script.js' %}"></script>
-    <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
 </body>
 </html>
