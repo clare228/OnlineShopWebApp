@@ -11,9 +11,10 @@
     <div class='navigation_bar'>
         <img src="{% static 'web_app/images/logo.jpg' %}" id='logo'>
         <div id='search_menu'>
-            <form>
+            <form id="search_form" action="{% url 'search' %}" method="post">
                 {% csrf_token %}
                 <input id='search_bar' type="text" name="search" placeholder="Search">
+                <input type="submit" id='search_btn' tabindex="-1"/>
             </form>
             <span id="open_nav" style="font-size:30px;cursor:pointer">&#9776; </span>
         </div>
@@ -40,6 +41,9 @@
         var groups = JSON.parse("{{json_groups|escapejs}}")
         var sets = JSON.parse("{{json_sets|escapejs}}")
         var colours = JSON.parse("{{json_colours|escapejs}}")
+        var photos = JSON.parse("{{json_photos|escapejs}}")
+        var search_items = JSON.parse("{{json_search_items|escapejs}}")
+        var search_sets = JSON.parse("{{json_search_sets|escapejs}}")
     </script>
     <script src="{% static 'web_app/script.js' %}"></script>
 </body>

@@ -1,0 +1,72 @@
+{% extends "web_app/base.html" %}
+{% load static %}
+
+{% block title %}
+    search
+{% endblock %}
+
+{% block body %}
+<div class='main_container'>
+    <h1>Search results</h1>
+    <div  id='category_container'>
+
+        <div class='navigation_div'>
+            <h2>Collection</h2>
+            <a href="{% url 'category' 'All items' %}">All items</a>
+            {% for category in categories %}
+                <a href="{% url 'category' category.category_name %}">{{category.category_name}}</a>
+            {% endfor %}
+            <h2>Filter</h2>
+            <button type="button" class="collapsible">Filter by colour</button>
+            <div class="colour">
+                <div class='filters'>
+                    {% for colour in colours %}
+                        <div class='each_colour'>
+                            <span class='options'>{{colour.colour_name}} </span>
+                            <input type="checkbox" class="colour_check" id={{colour.id}}>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+            <button type="button" class="collapsible">Filter by price</button>
+            <div class="price">
+                <div class='filter_price'>
+                    <form id='price_form'>
+                        {% csrf_token %}
+                        <div>
+                            <span>Min price: £ </span>
+                            <input id='min_price' class='price_input' type="number" min="0" name="min_price" placeholder="Eg. 20" onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+                        <div>
+                            <span>Max price: £ </span>
+                            <input id='max_price' class='price_input' type="number" min="0" name="max_price" placeholder="Eg. 80" onkeyup="if(this.value<0){this.value= this.value * -1}">
+                        </div>
+                        <input id='price_submit' type="submit" value="Apply filter"/>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class='items_div' id='search_item_div'>
+            {% for search in search_items %}
+                <div class='item_div' id={{search.id}}>
+                    <img alt="No image available" class='item_img' src="{% static 'web_app/images/' %}item_{{search.id}}_1.jpg">
+                    <div class='description_div'>
+                        <span id="item_name">{{search.item_name}}</span>
+                        <span id="item_price">Price: £{{search.price}}</span>
+                    </div>
+                </div>
+            {% endfor %}
+            {% for search in search_sets %}
+                <div class='set_div' id={{search.id}}>
+                    <img alt="No image available" class='item_img' src="{% static 'web_app/images/' %}set_{{search.id}}.jpg">
+                    <div class='description_div'>
+                        <span id="item_name">{{search.set_name}}</span>
+                        <span id="item_price">Price: £{{search.set_price}}</span>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

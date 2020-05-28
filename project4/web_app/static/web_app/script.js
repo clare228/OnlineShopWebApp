@@ -14,14 +14,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Logo = homepage
     document.querySelector('#logo').onclick = () =>{
-        window.location.href = '.';
+        window.location.replace("http://127.0.0.1:8000/");
     }
 
     // Category image links
     if (document.querySelector('.category_img')){
         document.querySelectorAll('.category_img').forEach(image =>{
             image.onclick = () => {
-                console.log(image.id)
                 window.location.href = image.id;
             }
         });
@@ -52,7 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
             for (j=0; j<db.length; j++){
                 if(db[j]['pk'].toString() === item.id){ // find div item in db
                     item_colours=db[j]['fields']['colour'];
-                    console.log(db[j]['fields']['item_name'] + ': ' + item_colours)
                     count = 0;
                     for (k=0; k<item_colours.length; k++){ // for each item colour
                         if(item_colours[k].toString()===colour_id){ //if colour matches selected colour
@@ -71,11 +69,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // function to filter set colours
     function fliter_sets(db, colour_id, display_opt){
         document.querySelectorAll('.set_div').forEach(item =>{
-            console.log(db)
             for (j=0; j<db.length; j++){
                 if(db[j]['pk'].toString() === item.id){ // find div item in db
                     set_colours=db[j]['fields']['set_colour'];
-                    console.log(db[j]['fields']['set_name'] + ': ' + set_colours)
                     count = 0;
                     for (k=0; k<set_colours.length; k++){ // for each item colour
                         if(set_colours[k].toString()===colour_id){ //if colour matches selected colour
@@ -103,7 +99,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         fliter_sets(sets, colour_id, "none");
 
                     }else if (box.checked === false){
-                        console.log(box.id + 'not checked')
                         colour_id = box.id;
                         fliter_items(items, colour_id, "flex");
                         fliter_sets(sets, colour_id, "flex");
@@ -176,24 +171,18 @@ document.addEventListener('DOMContentLoaded', () => {
             let min_price = document.querySelector('#min_price').value
             let max_price = document.querySelector('#max_price').value
 
-            console.log(min_price)
-            console.log(max_price)
-
             if (min_price === ""){
                 min_price = "0";
-                console.log('no min')
             };
 
             if (max_price === ""){
                 max_price = "1000";
-                console.log('no max')
             };
 
             if (parseInt(max_price)-parseInt(min_price) < 0){
                 price_temp = min_price;
                 min_price = max_price;
                 max_price = price_temp;
-                console.log('min>max')
             };
 
             if (max_price === min_price){
@@ -201,7 +190,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 max_price = max_price.toString()
                 min_price = parseInt(min_price) - 10;
                 min_price = min_price.toString()
-                console.log('min=max')
             }
 
             fliter_price_sets(sets, min_price, max_price)
@@ -248,5 +236,29 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             window.location.replace("http://127.0.0.1:8000/" + item_name + "/" + item_type + "/" + item_id);
         }
+    }
+
+    // Click on small imgs, replace largeimage to small image
+    // check if image is already large
+    // delete original large image from main image div
+    // add small image to div
+    if (document.querySelector('.small_imgs')){
+        document.querySelectorAll('.images').forEach(img =>{
+            img.onclick = () => {
+
+                // delete large image from main_img div
+                document.querySelector('.main_img_div').innerHTML = ""
+
+                // Create image element
+                image = document.createElement("img");
+                // alt="No image available" class='images' src="{% static 'web_app/images/' %}{{photo}}"
+
+                console.log(img.id)
+                image.setAttribute("alt","No image available")
+                image.setAttribute("src", `/static/web_app/images/${img.id}`)
+
+                document.querySelector('.main_img_div').append(image);
+            }
+        })
     }
 })

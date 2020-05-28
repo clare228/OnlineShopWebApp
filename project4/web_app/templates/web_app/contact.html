@@ -1,11 +1,21 @@
 {% extends "web_app/base.html" %}
+{% load static %}
 
 {% block title %}
-    Home
+    Contact
 {% endblock %}
 
 {% block body %}
 <div class='main_container'>
     <h1>Contact</h1>
+    <div id='contact_form_div'>
+        <form id="contact_form" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <div class="form-actions">
+            <button id="contact_btn" type="submit">Send</button>
+            </div>
+        </form>
+    </div>
 </div>
 {% endblock %}
