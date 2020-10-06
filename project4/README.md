@@ -1,8 +1,10 @@
-# Project 4
+# OnlineShopWebAPP
 
-Web Programming with Python and JavaScript
+Web Programming with Python and JavaScript (Django, SQL)
 
-My mum has been making jewelleries and macrame recently and has started to set up online shops in websites such as etsy and ebay. I thought it would be nice to make a website for her new shop as my final project. I have included only a small number of items of hers in this website as a test.
+A family member of mine has been making macrame decorations and jewelleries. I have made an online shop website and have included a small number of items of hers in this website as a test.
+
+A short video that demonstrates functionality of website: https://www.youtube.com/watch?v=_o864JYeFUY&feature=youtu.be
 
 Python files:
 1) models.py
