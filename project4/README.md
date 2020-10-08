@@ -4,8 +4,13 @@ Web Programming with Python and JavaScript (Django, SQL)
 
 A family member of mine has been making macrame decorations and jewelleries. I have made an online shop website and have included a small number of items of hers in this website as a test.
 
+# Short demonstration video
 A short video that demonstrates functionality of website: https://www.youtube.com/watch?v=_o864JYeFUY&feature=youtu.be
 
+# Progress:
+1st version completed
+
+# Files
 Python files:
 1) models.py
 - database of items, categories, photos etc
