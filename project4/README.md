@@ -7,7 +7,7 @@ A family member of mine has been making macrame decorations and jewelleries. I h
 # Short demonstration video
 A short video that demonstrates functionality of website: https://www.youtube.com/watch?v=_o864JYeFUY&feature=youtu.be
 
-# Progress:
+# Progress
 1st version completed
 
 # Files
